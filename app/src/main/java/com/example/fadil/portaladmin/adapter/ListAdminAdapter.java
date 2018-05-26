@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fadil.portaladmin.R;
+import com.example.fadil.portaladmin.modelapi.DataPengaduan;
 import com.example.fadil.portaladmin.modelapi.ResponseAdministrasi;
 
 import java.util.List;
@@ -22,13 +23,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListAdminAdapter extends RecyclerView.Adapter<ListAdminAdapter.ListAdminViewHolder> {
-    private final List<ResponseAdministrasi> listAdmin;
+    private final List<DataPengaduan> listAdmin;
     //deklarasi global variabel
     private Context context;
 
 
     //konstruktor untuk menerima data adapter
-    public ListAdminAdapter(Context context, List<ResponseAdministrasi> listAdmin) {
+    public ListAdminAdapter(Context context, List<DataPengaduan> listAdmin) {
         this.context = context;
         this.listAdmin = listAdmin;
     }
@@ -47,16 +48,16 @@ public class ListAdminAdapter extends RecyclerView.Adapter<ListAdminAdapter.List
     //bind view holder berfungsi untuk set data ke view yang ditampilkan pada list item
     @Override
     public void onBindViewHolder(ListAdminViewHolder holder, int position) {
-       final ResponseAdministrasi mCurrent = listAdmin.get(position);
+       final DataPengaduan mCurrent = listAdmin.get(position);
        /*
         holder.tvNamaUser.setText(mCurrent.getNama());
         holder.tvTanggal.setText(mCurrent.getCreatedAt());
         holder.tvBacklog.setText(mCurrent.getBacklog());
         holder.tvTask.setText(mCurrent.getTask());
         holder.tvNote.setText(mCurrent.getNote());*/
-       holder.tvNama.setText(mCurrent.getNama());
+       holder.tvNama.setText(mCurrent.getNim());
        holder.tvNim.setText(mCurrent.getNim());
-       holder.tvAdmin.setText(mCurrent.getAdmin());
+       holder.tvAdmin.setText(mCurrent.getJudul());
        holder.tvKeluhan.setText(mCurrent.getKeluhan());
        holder.tvSaran.setText(mCurrent.getSaran());
     }
@@ -80,12 +81,6 @@ public class ListAdminAdapter extends RecyclerView.Adapter<ListAdminAdapter.List
             tvAdmin = itemView.findViewById(R.id.list_admin_administrasi);
             tvKeluhan = itemView.findViewById(R.id.list_admin_keluhan);
             tvSaran = itemView.findViewById(R.id.list_admin_saran);
-           /* tvNamaUser = (TextView) itemView.findViewById(R.id.tv_nama_karyawan_presensi);
-            tvStatus = (TextView) itemView.findViewById(R.id.tv_status);
-            tvTanggal = (TextView) itemView.findViewById(R.id.tv_tanggal);
-            tvBacklog = (TextView) itemView.findViewById(R.id.tv_backlog);
-            tvTask = (TextView) itemView.findViewById(R.id.tv_task);
-            tvNote = (TextView) itemView.findViewById(R.id.tv_note);*/
             this.mAdapter = adapter;
         }
     }

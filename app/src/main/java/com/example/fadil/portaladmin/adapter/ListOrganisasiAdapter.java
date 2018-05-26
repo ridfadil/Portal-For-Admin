@@ -39,13 +39,7 @@ public class ListOrganisasiAdapter extends RecyclerView.Adapter<ListOrganisasiAd
     @Override
     public void onBindViewHolder(ListOrganisasiViewHolder holder, int position) {
         final ResponseOrganisasi mCurrent = listOrganisasi.get(position);
-       /*
-        holder.tvNamaUser.setText(mCurrent.getNama());
-        holder.tvTanggal.setText(mCurrent.getCreatedAt());
-        holder.tvBacklog.setText(mCurrent.getBacklog());
-        holder.tvTask.setText(mCurrent.getTask());
-        holder.tvNote.setText(mCurrent.getNote());*/
-        holder.tvNama.setText(mCurrent.getNama());
+        //holder.tvNama.setText(mCurrent.getNama());
         holder.tvNim.setText(mCurrent.getNim());
         holder.tvAdmin.setText(mCurrent.getOrganisasi());
         holder.tvKeluhan.setText(mCurrent.getKeluhan());
@@ -71,12 +65,6 @@ public class ListOrganisasiAdapter extends RecyclerView.Adapter<ListOrganisasiAd
             tvAdmin = itemView.findViewById(R.id.list_organisasi_organisasi);
             tvKeluhan = itemView.findViewById(R.id.list_organisasi_keluhan);
             tvSaran = itemView.findViewById(R.id.list_organisasi_saran);
-           /* tvNamaUser = (TextView) itemView.findViewById(R.id.tv_nama_karyawan_presensi);
-            tvStatus = (TextView) itemView.findViewById(R.id.tv_status);
-            tvTanggal = (TextView) itemView.findViewById(R.id.tv_tanggal);
-            tvBacklog = (TextView) itemView.findViewById(R.id.tv_backlog);
-            tvTask = (TextView) itemView.findViewById(R.id.tv_task);
-            tvNote = (TextView) itemView.findViewById(R.id.tv_note);*/
             this.mAdapter = adapter;
         }
     }

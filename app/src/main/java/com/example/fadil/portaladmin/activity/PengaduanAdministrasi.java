@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import com.example.fadil.portaladmin.R;
 import com.example.fadil.portaladmin.adapter.ListAdminAdapter;
+import com.example.fadil.portaladmin.api.UtilsApi;
+import com.example.fadil.portaladmin.modelapi.DataPengaduan;
+import com.example.fadil.portaladmin.modelapi.ModelPengaduan;
 import com.example.fadil.portaladmin.modelapi.ResponseAdministrasi;
 
 import java.util.ArrayList;
@@ -21,10 +24,12 @@ import retrofit2.Response;
 
 public class PengaduanAdministrasi extends AppCompatActivity {
 
-    private List<ResponseAdministrasi> listAdmin;
+    public List<DataPengaduan> responData = new ArrayList<>();
+    FloatingActionButton fab;
+    private List<ModelPengaduan> listAdmin;
     private RecyclerView mRecyclerView;
     private ListAdminAdapter mAdapter;
-    FloatingActionButton fab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,47 +40,31 @@ public class PengaduanAdministrasi extends AppCompatActivity {
  /*       SessionManager userPref = new SessionManager(getApplicationContext());
         final String accesToken = userPref.getAccesToken();*/
 
-        /*Call<List<Present>> call = UtilsApi.getAPIService().getAllPresent("Bearer "+accesToken);
-        call.enqueue(new Callback<List<Present>>() {
+        Call<ModelPengaduan> call = UtilsApi.getAPIService().getPengaduan("1157050094");
+        call.enqueue(new Callback<ModelPengaduan>() {
             @Override
-            public void onResponse(Call<List<Present>> call, Response<List<Present>> response) {
-                Toast.makeText(ListPresensiActivity.this, "harusnya bener", Toast.LENGTH_SHORT).show();
-                if (response.code()==200){
-                    List<Present> allUser = response.body();
-                    for(int i = 0; i<allUser.size(); i++){
-                        String id = allUser.get(i).getId();
-                        String email = allUser.get(i).getEmail();
-                        String nama = allUser.get(i).getNama();
-                        String statusPrs = allUser.get(i).getStatusPrs();
-                        String backlog = allUser.get(i).getBacklog();
-                        String task = allUser.get(i).getTask();
-                        String note = allUser.get(i).getNote();
-                        String createdAt = allUser.get(i).getCreatedAt();
-                        String updatedAt = allUser.get(i).getUpdatedAt();
-                        int v = allUser.get(i).getV();*/
-                        String nama = "Muhamad Farid Padilah ";
-                        String nim = "1157050094";
-                        String admin = "Himatif";
-                        String keluhan = "Lorem ipsum Doekler fgj huyy ghg j kjjkju dfcfgf iy";
-                        String saran = "Lorem ipsum Doekler fgj huyy ghg j kjjkju dfcfgf iy ytuyut tyujtyu tyutjyu tyutyuty tyutydfgd";
-                        listAdmin.add(new ResponseAdministrasi(nama,nim,admin,keluhan,saran));
-                   /* }
-                }
-                else {
-                    Toast.makeText(ListPresensiActivity.this, "not correct", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ModelPengaduan> call, Response<ModelPengaduan> response) {
+                // Toast.makeText(PengaduanAdministrasi.this, "harusnya bener", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    responData = response.body().getData();
+                    mRecyclerView.setAdapter(new ListAdminAdapter(getApplicationContext(), responData));
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(PengaduanAdministrasi.this, "not correct", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Present>> call, Throwable t) {
-                Toast.makeText(ListPresensiActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ModelPengaduan> call, Throwable t) {
+                Toast.makeText(PengaduanAdministrasi.this, "Error", Toast.LENGTH_SHORT).show();
             }
-        });*/
+
+        });
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_list_admin);
 
-        mAdapter = new ListAdminAdapter(getApplicationContext(), listAdmin);
+        mAdapter = new ListAdminAdapter(getApplicationContext(), responData);
 
         mRecyclerView.setAdapter(mAdapter);
 
