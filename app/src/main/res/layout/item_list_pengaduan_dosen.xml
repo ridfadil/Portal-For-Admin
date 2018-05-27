@@ -35,11 +35,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Nama :"
+                    android:text="Jenis Pengaduan : "
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/list_organisasi_nama"
+                    android:id="@+id/list_Dosen_nama"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -60,7 +60,7 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/list_organisasi_nim"
+                    android:id="@+id/list_dosen_nim"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -81,15 +81,15 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textStyle="bold"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Nama Orga:"
-                    android:textSize="18sp" />
+                    android:text="Nama Dosen :"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/list_organisasi_organisasi"
+                    android:id="@+id/list_dosen_judul"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -105,17 +105,17 @@
                 android:background="@color/colorPrimaryLight" />
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Keluhan : "
-                android:textStyle="bold"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/list_organisasi_keluhan"
+                android:id="@+id/list_dosen_keluhan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="e huil kilo Lorem Ipsum Doler Is Ammet iuy agar "
+                android:text="hhmmmm"
                 android:textSize="18sp" />
 
             <View
@@ -133,7 +133,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/list_organisasi_saran"
+                android:id="@+id/list_dosen_saran"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="e huil kilo Lorem Ipsum Duy kfg ghf ghfh hfdhf dfhfg gh sdgf sdgoler Is Ammet iuy agar "

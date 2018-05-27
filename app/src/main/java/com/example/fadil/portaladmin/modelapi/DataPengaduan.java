@@ -3,6 +3,18 @@ package com.example.fadil.portaladmin.modelapi;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/*        "status": "success",
+                "data": [
+    {
+        "id": 3,
+            "judul": "organisasi",
+            "nim": "1157050094",
+            "keluhan": "tidak sesuai",
+            "saran": "harus lebih baik",
+            "jenis_keluhan": "organisasi",
+            "foto": null
+    },*/
+
 public class DataPengaduan {
     @SerializedName("id")
     @Expose

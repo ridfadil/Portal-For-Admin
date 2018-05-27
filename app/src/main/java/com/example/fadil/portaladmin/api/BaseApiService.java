@@ -1,8 +1,10 @@
 package com.example.fadil.portaladmin.api;
 
+import com.example.fadil.portaladmin.activity.PengaduanOrganisasi;
 import com.example.fadil.portaladmin.modelapi.ResponseLogin;
 import com.example.fadil.portaladmin.modelapi.FormLogin;
 import com.example.fadil.portaladmin.modelapi.ModelPengaduan;
+import com.example.fadil.portaladmin.modelapi.ResponseOrganisasi;
 import com.example.fadil.portaladmin.modelapi.ResponseStatistik;
 
 import retrofit2.Call;
@@ -13,9 +15,27 @@ import retrofit2.http.Path;
 
 public interface BaseApiService {
 
-
+/*
     @GET("getPengaduan/{NIM}")
-    Call<ModelPengaduan> getPengaduan( @Path("NIM") String nim);
+    Call<ModelPengaduan> getPengaduan( @Path("NIM") String nim);*/
+
+    @GET("getAllPengaduan/")
+    Call<ModelPengaduan> getPengaduan();
+
+/*    @GET("getAllPengaduan/")
+    Call<ModelPengaduan> getPengaduan();*/
+
+    @GET("getPengaduanFasilitas/")
+    Call<ModelPengaduan> getFasilitas();
+
+    @GET("getPengaduanOrganisasi/")
+    Call<ModelPengaduan> getOrganisasi();
+
+    @GET("getPengaduanAdministrasi/")
+    Call<ModelPengaduan> getAdministrasi();
+
+    @GET("getPengaduanDosen/")
+    Call<ModelPengaduan> getDosen();
 
     @GET("getStatistik/")
     Call<ResponseStatistik> getStatistik();

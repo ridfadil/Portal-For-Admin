@@ -6,78 +6,66 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.fadil.portaladmin.R;
 import com.example.fadil.portaladmin.adapter.ListAdminAdapter;
 import com.example.fadil.portaladmin.adapter.ListOrganisasiAdapter;
+import com.example.fadil.portaladmin.api.UtilsApi;
+import com.example.fadil.portaladmin.modelapi.DataPengaduan;
+import com.example.fadil.portaladmin.modelapi.ModelPengaduan;
 import com.example.fadil.portaladmin.modelapi.ResponseAdministrasi;
 import com.example.fadil.portaladmin.modelapi.ResponseOrganisasi;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PengaduanOrganisasi extends AppCompatActivity {
 
-    private List<ResponseOrganisasi> listOrganisasi;
+    FloatingActionButton fab;
+    private List<DataPengaduan> responData;
     private RecyclerView mRecyclerView;
     private ListOrganisasiAdapter mAdapter;
-    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pengaduan_organisasi);
-        listOrganisasi = new ArrayList<>();
+        responData = new ArrayList<>();
         backButton();
  /*       SessionManager userPref = new SessionManager(getApplicationContext());
         final String accesToken = userPref.getAccesToken();*/
 
-        /*Call<List<Present>> call = UtilsApi.getAPIService().getAllPresent("Bearer "+accesToken);
-        call.enqueue(new Callback<List<Present>>() {
+        Call<ModelPengaduan> call = UtilsApi.getAPIService().getOrganisasi();
+        call.enqueue(new Callback<ModelPengaduan>() {
             @Override
-            public void onResponse(Call<List<Present>> call, Response<List<Present>> response) {
-                Toast.makeText(ListPresensiActivity.this, "harusnya bener", Toast.LENGTH_SHORT).show();
-                if (response.code()==200){
-                    List<Present> allUser = response.body();
-                    for(int i = 0; i<allUser.size(); i++){
-                        String id = allUser.get(i).getId();
-                        String email = allUser.get(i).getEmail();
-                        String nama = allUser.get(i).getNama();
-                        String statusPrs = allUser.get(i).getStatusPrs();
-                        String backlog = allUser.get(i).getBacklog();
-                        String task = allUser.get(i).getTask();
-                        String note = allUser.get(i).getNote();
-                        String createdAt = allUser.get(i).getCreatedAt();
-                        String updatedAt = allUser.get(i).getUpdatedAt();
-                        int v = allUser.get(i).getV();*/
-        String nama = "Muhamad Farid Padilah ";
-        String nim = "1157050094";
-        String organisasi = "Himatif";
-        String keluhan = "Lorem ipsum Doekler fgj huyy ghg j kjjkju dfcfgf iy";
-        String saran = "Lorem ipsum Doekler fgj huyy ghg j kjjkju dfcfgf iy ytuyut tyujtyu tyutjyu tyutyuty tyutydfgd";
-        listOrganisasi.add(new ResponseOrganisasi(nama,nim,organisasi,keluhan,saran));
-                   /* }
-                }
-                else {
-                    Toast.makeText(ListPresensiActivity.this, "not correct", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ModelPengaduan> call, Response<ModelPengaduan> response) {
+                //Toast.makeText(ListPresensiActivity.this, "harusnya bener", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    responData = response.body().getData();
+                    mRecyclerView.setAdapter(new ListOrganisasiAdapter(getApplicationContext(), responData));
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(PengaduanOrganisasi.this, "not correct", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Present>> call, Throwable t) {
-                Toast.makeText(ListPresensiActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ModelPengaduan> call, Throwable t) {
+                Toast.makeText(PengaduanOrganisasi.this, "Error", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_list_organisasi);
 
-        mAdapter = new ListOrganisasiAdapter(getApplicationContext(), listOrganisasi);
-
-        mRecyclerView.setAdapter(mAdapter);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        mAdapter = new ListOrganisasiAdapter(getApplicationContext(), responData);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     //untuk enampilkan back button

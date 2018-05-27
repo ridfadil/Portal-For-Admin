@@ -6,11 +6,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.fadil.portaladmin.R;
 import com.example.fadil.portaladmin.adapter.SlidingAdapter;
+import com.example.fadil.portaladmin.session.SessionManager;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
     private static ViewPager mPager;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
+    SessionManager session;
     CardView cdFasilitas, cdDosen, cdAdministrasi, cdOrganisasi, cdStatistik, cdTentang;
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
 
@@ -83,6 +88,31 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+
+    public void logoutUser(){
+        session = new SessionManager(getApplicationContext());
+        session.logoutUser();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                logoutUser();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void initialized() {

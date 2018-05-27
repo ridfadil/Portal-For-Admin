@@ -9,39 +9,38 @@ import android.widget.TextView;
 
 import com.example.fadil.portaladmin.R;
 import com.example.fadil.portaladmin.modelapi.DataPengaduan;
-import com.example.fadil.portaladmin.modelapi.ResponseAdministrasi;
-import com.example.fadil.portaladmin.modelapi.ResponseOrganisasi;
 import com.example.fadil.portaladmin.session.SessionManager;
 
 import java.util.List;
 
-public class ListOrganisasiAdapter extends RecyclerView.Adapter<ListOrganisasiAdapter.ListOrganisasiViewHolder> {
-    private final List<DataPengaduan> listOrganisasi;
+public class ListFasilitasAdapter extends RecyclerView.Adapter<ListFasilitasAdapter.ListFasilitasViewHolder> {
+    private final List<DataPengaduan> listFasilitas;
     //deklarasi global variabel
     private Context context;
     SessionManager session;
 
+
     //konstruktor untuk menerima data adapter
-    public ListOrganisasiAdapter(Context context, List<DataPengaduan> listOrganisasi) {
+    public ListFasilitasAdapter(Context context, List<DataPengaduan> listFasilitas) {
         this.context = context;
-        this.listOrganisasi = listOrganisasi;
+        this.listFasilitas= listFasilitas;
     }
+
     //view holder berfungsi untuk setting list item yang digunakan
     @Override
-    public ListOrganisasiViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View mItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_pengaduan_organisasi, null, false);
+    public ListFasilitasViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View mItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_pengaduan_fasilitas, null, false);
 
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mItemView.setLayoutParams(layoutParams);
 
-        return new ListOrganisasiViewHolder(mItemView, this);
+        return new ListFasilitasViewHolder(mItemView, this);
     }
 
     //bind view holder berfungsi untuk set data ke view yang ditampilkan pada list item
     @Override
-    public void onBindViewHolder(ListOrganisasiViewHolder holder, int position) {
-        final DataPengaduan mCurrent = listOrganisasi.get(position);
-        //holder.tvNama.setText(mCurrent.getNama());
+    public void onBindViewHolder(ListFasilitasViewHolder holder, int position) {
+        final DataPengaduan mCurrent = listFasilitas.get(position);
         session = new SessionManager(context);
         String nama = session.getNama();
         holder.tvNama.setText(nama);
@@ -49,26 +48,28 @@ public class ListOrganisasiAdapter extends RecyclerView.Adapter<ListOrganisasiAd
         holder.tvAdmin.setText(mCurrent.getJudul());
         holder.tvKeluhan.setText(mCurrent.getKeluhan());
         holder.tvSaran.setText(mCurrent.getSaran());
+
     }
 
     //untuk menghitung jumlah data yang ada pada list
     @Override
     public int getItemCount() {
-        return listOrganisasi.size();
+        return listFasilitas.size();
     }
-    public class ListOrganisasiViewHolder extends RecyclerView.ViewHolder{
-        final ListOrganisasiAdapter mAdapter;
+
+    public class ListFasilitasViewHolder extends RecyclerView.ViewHolder{
+        final ListFasilitasAdapter mAdapter;
         private TextView tvNama, tvNim, tvAdmin, tvKeluhan, tvSaran;
 
         //untuk casting view yang digunakan pada list item
-        public ListOrganisasiViewHolder(View itemView, ListOrganisasiAdapter adapter) {
+        public ListFasilitasViewHolder(View itemView, ListFasilitasAdapter adapter) {
             super(itemView);
             context = itemView.getContext();
-            tvNama = itemView.findViewById(R.id.list_organisasi_nama);
-            tvNim = itemView.findViewById(R.id.list_organisasi_nim);
-            tvAdmin = itemView.findViewById(R.id.list_organisasi_organisasi);
-            tvKeluhan = itemView.findViewById(R.id.list_organisasi_keluhan);
-            tvSaran = itemView.findViewById(R.id.list_organisasi_saran);
+            tvNama = itemView.findViewById(R.id.list_fasilitas_nama);
+            tvNim = itemView.findViewById(R.id.list_fasilitas_nim);
+            tvAdmin = itemView.findViewById(R.id.list_dosen_judul);
+            tvKeluhan = itemView.findViewById(R.id.list_fasilitas_keluhan);
+            tvSaran = itemView.findViewById(R.id.list_admin_saran);
             this.mAdapter = adapter;
         }
     }

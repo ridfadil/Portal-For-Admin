@@ -1,5 +1,6 @@
 package com.example.fadil.portaladmin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.example.fadil.portaladmin.modelapi.DataLogin;
 import com.example.fadil.portaladmin.modelapi.ResponseLogin;
 import com.example.fadil.portaladmin.api.UtilsApi;
 import com.example.fadil.portaladmin.modelapi.FormLogin;
+import com.example.fadil.portaladmin.session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class LoginActivity extends AppCompatActivity  {
     private EditText etNimUsername;
     private EditText etPassword;
     private Button btnLogin;
+    SessionManager session;
     String nim,pass;
     List<DataLogin> responData =new ArrayList<>();
 
@@ -53,17 +56,26 @@ public class LoginActivity extends AppCompatActivity  {
             @Override
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
                 // Toast.makeText(PengaduanAdministrasi.this, "harusnya bener", Toast.LENGTH_SHORT).show();
+
                 if (response.isSuccessful()) {
+                    session = new SessionManager(getApplicationContext());
                     responData = response.body().getData();
-                    String nama = responData.get(0).getNama();
-                    String nim = responData.get(0).getNim();
-                    String password = responData.get(0).getPassword();
-                    String role = responData.get(0).getRole();
 
-                    Toast.makeText(LoginActivity.this, nama+" "+nim+" "+role+" "+password, Toast.LENGTH_SHORT).show();
-
+                    if (responData.size()<1) {
+                        Toast.makeText(LoginActivity.this, "Login Salah cek email dan username", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String Nim = responData.get(0).getNim();
+                        String nama = responData.get(0).getNama();
+                        String role = responData.get(0).getRole();
+                        session.createNamaSession(nama);
+                        session.createNimSession(Nim);
+                        session.createRoleSession(role);
+                        Toast.makeText(LoginActivity.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+                        startActivity(i);
+                    }
                 } else {
-                    Toast.makeText(LoginActivity.this, "not correct", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "check your Email or Password", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -75,7 +87,6 @@ public class LoginActivity extends AppCompatActivity  {
         });
 
     }
-
 
     private void initView() {
         etNimUsername = (EditText) findViewById(R.id.et_nim_username);

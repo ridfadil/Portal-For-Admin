@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.fadil.portaladmin.R;
 import com.example.fadil.portaladmin.modelapi.DataPengaduan;
 import com.example.fadil.portaladmin.modelapi.ResponseAdministrasi;
+import com.example.fadil.portaladmin.session.SessionManager;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class ListAdminAdapter extends RecyclerView.Adapter<ListAdminAdapter.List
     private final List<DataPengaduan> listAdmin;
     //deklarasi global variabel
     private Context context;
+    SessionManager session;
 
 
     //konstruktor untuk menerima data adapter
@@ -49,17 +51,14 @@ public class ListAdminAdapter extends RecyclerView.Adapter<ListAdminAdapter.List
     @Override
     public void onBindViewHolder(ListAdminViewHolder holder, int position) {
        final DataPengaduan mCurrent = listAdmin.get(position);
-       /*
-        holder.tvNamaUser.setText(mCurrent.getNama());
-        holder.tvTanggal.setText(mCurrent.getCreatedAt());
-        holder.tvBacklog.setText(mCurrent.getBacklog());
-        holder.tvTask.setText(mCurrent.getTask());
-        holder.tvNote.setText(mCurrent.getNote());*/
-       holder.tvNama.setText(mCurrent.getNim());
-       holder.tvNim.setText(mCurrent.getNim());
-       holder.tvAdmin.setText(mCurrent.getJudul());
-       holder.tvKeluhan.setText(mCurrent.getKeluhan());
-       holder.tvSaran.setText(mCurrent.getSaran());
+            session = new SessionManager(context);
+            String nama = session.getNama();
+           holder.tvNama.setText(nama);
+           holder.tvNim.setText(mCurrent.getNim());
+           holder.tvAdmin.setText(mCurrent.getJudul());
+           holder.tvKeluhan.setText(mCurrent.getKeluhan());
+           holder.tvSaran.setText(mCurrent.getSaran());
+
     }
 
     //untuk menghitung jumlah data yang ada pada list
@@ -68,7 +67,7 @@ public class ListAdminAdapter extends RecyclerView.Adapter<ListAdminAdapter.List
         return listAdmin.size();
     }
 
-    public class ListAdminViewHolder extends RecyclerView.ViewHolder/* implements View.OnLongClickListener */ {
+    public class ListAdminViewHolder extends RecyclerView.ViewHolder{
         final ListAdminAdapter mAdapter;
         private TextView tvNama, tvNim, tvAdmin, tvKeluhan, tvSaran;
 

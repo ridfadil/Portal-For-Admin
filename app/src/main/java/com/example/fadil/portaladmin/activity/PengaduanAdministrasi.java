@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.fadil.portaladmin.R;
 import com.example.fadil.portaladmin.adapter.ListAdminAdapter;
+import com.example.fadil.portaladmin.adapter.ListOrganisasiAdapter;
 import com.example.fadil.portaladmin.api.UtilsApi;
 import com.example.fadil.portaladmin.modelapi.DataPengaduan;
 import com.example.fadil.portaladmin.modelapi.ModelPengaduan;
@@ -40,11 +41,11 @@ public class PengaduanAdministrasi extends AppCompatActivity {
  /*       SessionManager userPref = new SessionManager(getApplicationContext());
         final String accesToken = userPref.getAccesToken();*/
 
-        Call<ModelPengaduan> call = UtilsApi.getAPIService().getPengaduan("1157050094");
+        Call<ModelPengaduan> call = UtilsApi.getAPIService().getAdministrasi();
         call.enqueue(new Callback<ModelPengaduan>() {
             @Override
             public void onResponse(Call<ModelPengaduan> call, Response<ModelPengaduan> response) {
-                // Toast.makeText(PengaduanAdministrasi.this, "harusnya bener", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ListPresensiActivity.this, "harusnya bener", Toast.LENGTH_SHORT).show();
                 if (response.isSuccessful()) {
                     responData = response.body().getData();
                     mRecyclerView.setAdapter(new ListAdminAdapter(getApplicationContext(), responData));
